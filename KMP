@@ -1,0 +1,34 @@
+#include <string>
+#include <iostream>
+using namespace std;
+
+void szukajWzoru(string & _test,string _wzor )
+{
+    size_t Pozycja = _test.find(_wzor);
+    if(Pozycja == string::npos )
+    {
+        return;
+    }
+
+    do
+    {
+        cout<<Pozycja<<endl;
+        Pozycja = _test.find(_wzor,Pozycja+1);
+    } while( Pozycja != string::npos );
+
+}
+
+int main()
+{
+    long int liczba_testow=0,i=0,dlugosc_wzoru;
+    string wzor,test;
+    cin>>liczba_testow;
+    for (i=0;i<liczba_testow;i++)
+    {
+        cin>>dlugosc_wzoru;
+        cin>>wzor;
+        cin>>test;
+        szukajWzoru( test, wzor );
+    }
+    return 0;
+}
