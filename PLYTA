@@ -1,0 +1,203 @@
+#include <iostream>
+#include <cstring>
+#include <stdlib.h>
+#include <vector>
+#include <stdio.h>
+
+using namespace std;
+enum typ {CD,DVD};
+
+class Utwor
+{
+
+    string _tytul;
+    string _autor;
+    int _numer;
+
+public:
+    int _czas_trwania;
+    void wyswietlUtwor();
+    void ustawUtwor(string a_tytul, string a_autor, int a_czas_trwania);
+    void ustawNumer(int numer);
+//konstrukor
+    Utwor(string,string,int);
+
+};
+
+//****************************************************************************
+
+class Plyta
+{
+    string _tytul;
+    typ _typ;
+    int _numer;
+    int _czas_trwania;
+    vector<Utwor> _lista_utworow;
+public:
+    void wyswietlPlyte();
+    void dodajUtwor(Utwor& utwor);
+    void czyscPlyte();
+//konstrukor
+    Plyta(string,typ,int);
+    };
+
+void Utwor::wyswietlUtwor()
+{
+ cout<<"Tytul utworu :"<<_tytul<<endl;
+ cout<<"Autor utworu :"<<_autor<<endl;
+ cout<<"Czas trwania utworu :"<<_czas_trwania<<endl;
+}
+
+void Utwor::ustawUtwor(string a_tytul,string a_autor,int a_czas_trwania)
+{
+    _tytul=a_tytul;
+    _autor=a_autor;
+    _czas_trwania=a_czas_trwania;
+}
+void Utwor::ustawNumer(int numer)
+{
+ _numer=numer;
+}
+
+Utwor::Utwor(string a_tytul,string a_autor,int a_czas_trwania)
+{
+   _tytul=a_tytul;
+   _autor=a_autor;
+   _czas_trwania=a_czas_trwania;
+}
+
+void Plyta::wyswietlPlyte()
+{
+  int j;
+  cout<<"Tytul plyty:"<<_tytul<<endl;
+  if (_typ==CD) cout<<"Typ plyty:"<<"CD"<<endl;
+  if (_typ==DVD) cout<<"Typ plyty:"<<"DVD"<<endl;
+  cout<<"Czas trwania plyty:"<<_czas_trwania<<endl;
+  for(j=0;j<_lista_utworow.size();j++)
+        {
+             _lista_utworow[j].wyswietlUtwor();
+        }
+
+}
+
+void Plyta::dodajUtwor(Utwor& _utwor)
+{
+    int czas_laczny=0;
+
+    _utwor.ustawNumer(_lista_utworow.size()+1);
+    _lista_utworow.push_back(_utwor);
+    for(int i=0;i<_lista_utworow.size();i++)
+    {
+        czas_laczny=czas_laczny+_lista_utworow[i]._czas_trwania;
+    }
+    _czas_trwania=czas_laczny;
+}
+
+void Plyta::czyscPlyte()
+{
+    _lista_utworow.clear();
+}
+
+Plyta::Plyta(string a_tytul,typ a_typ,int a_numer)
+{
+    _tytul=a_tytul;
+    _typ=a_typ;
+    _numer=a_numer;
+    _czas_trwania=0;
+}
+
+
+int main()
+{
+   char typ_plyty[3];
+    int numer_plyty=0,liczba_utworow,i,j,czas_utworu,liczba_plyt;
+    string tytul_plyty,tytul_utworu,autor_utworu;
+    typ _typ_plyty;
+    vector<Plyta>_lista_plyt;
+
+    do
+    {
+        do
+          {
+            cout<<"Podaj numer plyty"<<endl;
+            cin.clear();
+            cin.sync();
+            cin>>numer_plyty;
+          }
+        while (cin.fail()==true);
+        if ((numer_plyty!=0))
+        {
+            do
+               {
+                cout<<"Podaj tytul plyty"<<endl;
+                cin.clear();
+                cin.sync();
+                cin>>tytul_plyty;
+               }
+            while (cin.fail()==true);
+            do
+              {
+                cout<<"Podaj typ plyty: CD albo DVD"<<endl;
+                cin.clear();
+                cin.sync();
+                scanf("%s",typ_plyty);
+              }
+            while ((strncmp(typ_plyty,"DVD",3)!=0)&&(strncmp(typ_plyty,"CD",2)!=0));
+
+            if (strncmp(typ_plyty,"DVD",3)==0) _typ_plyty=DVD;
+            if (strncmp(typ_plyty,"CD",2)==0) _typ_plyty=CD;
+            Plyta Plyta1(tytul_plyty,_typ_plyty,numer_plyty);
+            do
+            {
+                cout<<"Podaj liczbe utworow"<<endl;
+                cin.clear();
+                cin.sync();
+                cin>>liczba_utworow;
+            }
+            while (cin.fail()==true);
+
+                Plyta1.czyscPlyte();
+                for (i=0;i<liczba_utworow;i++)
+                {
+                    do
+                    {
+                        cout<<"Podaj tytul utworu"<<endl;
+                        cin.clear();
+                        cin.sync();
+                        cin>>tytul_utworu;
+                    }
+                    while (cin.fail()==true);
+                    do
+                    {
+                        cout<<"Podaj autora utworu"<<endl;
+                        cin.clear();
+                        cin.sync();
+                        cin>>autor_utworu;
+                    }
+                    while (cin.fail()==true);
+                    do
+                    {
+                        cout<<"Podaj czas trwania utworu"<<endl;
+                        cin.clear();
+                        cin.sync();
+                        cin>>czas_utworu;
+                    }
+                    while (cin.fail()==true);
+                    Utwor Utwor1(tytul_utworu,autor_utworu,czas_utworu);
+                    Utwor1.ustawNumer(i+1);
+                    Plyta1.dodajUtwor(Utwor1);
+                }
+         _lista_plyt.push_back(Plyta1);
+
+        }
+    }
+    while (numer_plyty!=0);
+    liczba_plyt=_lista_plyt.size();
+    for(i=0;i<liczba_plyt;i++)
+    {
+        _lista_plyt[i].wyswietlPlyte();
+    }
+    return 0;
+}
+
+
