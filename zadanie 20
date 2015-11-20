@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int i,liczba,liczba1=0;
+    FILE *fp;
+
+     fp = fopen("liczby.dat","wb");
+     fseek(fp,0,SEEK_SET);
+    for (i=0;i<5;i++)
+    {
+             scanf("%d",&liczba);
+            fwrite(&liczba,sizeof(int),1,fp);
+    }
+    fclose(fp);
+printf("\n\n");
+
+    fp = fopen("liczby.dat","rb");
+    fseek(fp,0,SEEK_SET);
+    for (i=0;i<5;i++)
+    {
+            fread(&liczba1,sizeof(int),1,fp);
+            printf("%d ",liczba1);
+    }
+
+
+            fclose(fp);
+
+    return 0;
+}
