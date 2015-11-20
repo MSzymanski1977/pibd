@@ -1,0 +1,104 @@
+#include <iostream>
+#include <cstring>
+#include <stdlib.h>
+#include <windows.h>
+using namespace std;
+enum rola {przeciwnik,neutralny,przyjaciel};
+enum umiejetnosci {niskie,srednie,wysokie};
+//**********************************************
+class Postac {
+
+    string _nazwa;
+    rola _rola;
+protected:
+     int zywotnosc;
+     string bron;
+public:
+   string odczytajNazwe();
+   rola odczytajRole();
+   int zwrocZywotnosc();
+   void zmniejszZywotnosc();
+   void zwiekszZywotnosc();
+//konstrukor
+   Postac(string,rola);
+   ~Postac(void);
+};
+//****************************************************************************
+class Gracz:public Postac {
+private:
+    umiejetnosci _umiejetnosci;
+    void okreslUmiejetnosci();
+public:
+    void odczytajDane();
+    void zwiekszDoswiadczenie();
+    void zwiekszZywotnosc();
+};
+//*************************************************************
+
+string Postac::odczytajNazwe()
+{
+  cout<<"Nazwa postaci"<<_nazwa<<endl;
+  return _nazwa;
+}
+
+rola Postac::odczytajRole()
+{
+  cout<<"Nazwa postaci"<<_nazwa<<endl;
+  return _rola;
+}
+int Postac::zwrocZywotnosc()
+{
+    return zywotnosc;
+}
+
+void Postac::zwiekszZywotnosc()
+{
+   zywotnosc++;
+}
+
+void Postac::zmniejszZywotnosc()
+{
+    zywotnosc--;
+}
+//KONSTRUKTOR
+Postac::Postac(string a_nazwa,rola a_rola)
+{
+ _nazwa=a_nazwa;
+ _rola=a_rola;
+ zywotnosc=100;
+}
+Postac::~Postac(void)
+{
+    cout<<"usuwamy postac :"<<_nazwa<< endl;
+    //cout<<'\a';
+    Beep(1500,900);
+
+}
+
+void Gracz::okreslUmiejetnosci()
+{
+
+}
+void Gracz::odczytajDane()
+{
+  cout<<"Nazwa gracza :"<<_nazwa<<endl;
+  if (_rola==przeciwnik); cout<<"przeciwnik"<<endl;
+  if (_rola==neutralny); cout<<"neutralny"<<endl;
+  if (_rola==przyjaciel); cout<<"przyjaciel"<<endl;
+  cout<<"Zywotnosc gracza :"<<zywotnosc<<endl;
+  cout<<"Bron gracza :"<<bron<<endl;
+  if (_umiejetnosci==niskie); cout<<"umiejetnosci niskie"<<endl;
+  if (_umiejetnosci==srednie); cout<<"umiejetnosci srednie"<<endl;
+  if (_umiejetnosci==wysokie); cout<<"umiejetnosci wysokie"<<endl;
+}
+void Gracz::zwiekszDoswiadczenie()
+{
+
+}
+int main()
+{
+Postac Postac_1("Zenek",neutralny);
+
+
+return 0;
+}
