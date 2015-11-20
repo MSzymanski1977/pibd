@@ -20,9 +20,9 @@ public:
 
     double dokonajWplaty(double wplata);
 
-    int dokonajWyplaty(double wyplata,int nr_pin);
+    double dokonajWyplaty(double wyplata,int nr_pin);
 
-    int zmienPin(int nr_pin);
+    int zmienPin();
 
 };
 //*************************************************************
@@ -67,23 +67,30 @@ double Konto::dokonajWplaty(double wplata)
         saldo=saldo+wplata;
     return saldo;
 }
-int Konto::dokonajWyplaty(double wyplata, int nr_pin)
+double Konto::dokonajWyplaty(double wyplata, int nr_pin)
 {
     if ((pin==nr_pin)&&(wyplata<=saldo))
         {
             saldo=saldo-wyplata;
-            return 0;
+            return saldo;
         }
-else return 1;
+else return saldo;
 }
-int Konto::zmienPin(int nr_pin)
+int Konto::zmienPin()
 {
-    if (pin==nr_pin)
+int nowy_pin,stary_pin;
+   cout<<"Podaj  pin"<<endl;
+            cin>>stary_pin;
+    if (pin==stary_pin)
         {
-            pin=nr_pin;
+
+            cout<<"Podaj nowy pin"<<endl;
+            cin>>nowy_pin;
+            pin=nowy_pin;
+            cout<<"Pin zmieniony"<<endl;
             return 0;
         }
-    else return 1;
+    else {cout<<"Pin NIE zmieniony"<<endl;return 1; }
 }
 
 
@@ -92,12 +99,7 @@ int main()
  int nr_pin;
  double wplata;
  Konto MojeKonto;
- MojeKonto.nazwisko="Szymanski";
- MojeKonto.saldo=10000;
- MojeKonto.pin=1234;
- MojeKonto.procent=pluss;
- system("cls");
- MojeKonto.podajOprocentowanie();
+ MojeKonto.stworzKonto("Szymanski",10000,1234,pluss);
  cout<<"Podaj pin"<<endl;
  cin>>nr_pin;
  if (MojeKonto.sprawdzPin(nr_pin)==true)
@@ -107,10 +109,16 @@ int main()
  cout<<"Podaj kwote wplaty"<<endl;
  cin>>wplata;
  cout<<MojeKonto.dokonajWplaty(wplata)<<endl;
-
-
-
-
-
-    return 0;
+ MojeKonto.podajOprocentowanie();
+ cout<<"Podaj kwote wyplaty"<<endl;
+ cin>>wplata;
+ cout<<MojeKonto.dokonajWyplaty(wplata,nr_pin)<<endl;
+ MojeKonto.zmienPin();
+ cout<<"Podaj pin"<<endl;
+ cin>>nr_pin;
+ if (MojeKonto.sprawdzPin(nr_pin)==true)
+     cout<<"PIN zgodny"<<endl;
+ else
+     cout<<"Nieprawidlowy PIN"<<endl;
+return 0;
 }
