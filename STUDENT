@@ -1,0 +1,130 @@
+#include <iostream>
+#include <cstring>
+#include <stdlib.h>
+#include <windows.h>
+using namespace std;
+class Student {
+
+    string imie;
+    string nazwisko;
+    char rok_studiow;
+    float srednia;
+    float* srednie;
+    float policzSrednia(int liczba_ocen);
+public:
+    int rok_urodzenia;
+    string pesel;
+    string kier_studiow;
+    Student(string,string,string,string,char);
+    Student(string,string,string,char);
+    Student(void);
+    Student(Student&Wzor);
+    ~Student(void);
+    void wyswietlDane();
+    void policzSrednieLat();
+};
+//*************************************************************
+
+Student::Student(string imie_stud,string nazwisko_stud,string pesel_stud,string kier_stud,char rok_studiow_stud)
+{
+    imie=imie_stud;
+    nazwisko=nazwisko_stud;
+    rok_urodzenia=1977;
+    pesel=pesel_stud;
+    kier_studiow=kier_stud;
+    rok_studiow=rok_studiow_stud;
+    srednie=new float[rok_studiow-48];
+    srednia=0;
+
+    cout<<"Konstruktor podstawiajacy"<<endl;
+
+}
+
+Student::Student(string im_st,string nazw_st,string pesel_st,char rok_studiow_st):imie(im_st),nazwisko(nazw_st),pesel(pesel_st),rok_studiow(rok_studiow_st)
+{srednia=0;rok_urodzenia=1980;kier_studiow="idn";float *srednie=new float[rok_studiow-48];cout<<"Konstruktor z lista inicjaliacyjna"<<endl;}
+
+Student::Student(void)
+{
+    imie="Olek";
+    nazwisko="Kwasniewski";
+    pesel="80230980";
+    kier_studiow="air";
+    rok_studiow=51;
+    srednia=0;
+    float *srednie=new float[rok_studiow-48];
+
+    cout<<"Tu konstruktor bezparametryczny"<<endl;
+}
+Student::Student(Student&Wzor)
+{
+    imie=Wzor.imie;
+    nazwisko=Wzor.nazwisko;
+    pesel=Wzor.pesel;
+    rok_urodzenia=Wzor.rok_urodzenia;
+    kier_studiow=Wzor.kier_studiow;
+    rok_studiow=Wzor.rok_studiow;
+    srednia=Wzor.srednia;
+    for(int i=0;i<5;i++)
+    {
+       srednie[i]=Wzor.srednie[i];
+    }
+
+    cout<<"Tu konstruktor kopiujacy"<<endl;
+}
+Student::~Student(void)
+{
+    delete[] srednie;
+    cout<<"usuwamy studenta :"<<imie<<nazwisko<< endl;
+    //cout<<'\a';
+    Beep(1500,900);
+
+}
+float Student::policzSrednia(int liczba_ocen)
+{
+    int ocena=0,suma_ocen=0,i;
+    for(i=0;i<liczba_ocen;i++)
+        {
+            cout<<"Podaj "<<i+1<<" ocene:"<<endl;
+            cin>>ocena;
+            suma_ocen=suma_ocen+ocena;
+        }
+     srednia= suma_ocen/liczba_ocen;
+return suma_ocen/liczba_ocen;
+}
+
+void Student::wyswietlDane()
+{
+  int i=0;
+  cout<<"Imie studenta :"<<imie<<endl;
+  cout<<"Nazwisko studenta :"<<nazwisko<<endl;
+  cout<<"Nr PESEL studenta :"<<pesel<<endl;
+  cout<<"Rok studiow :"<<rok_studiow<<endl;
+  cout<<"Srednia studenta :"<<srednia<<endl;
+  cout<<"Rok urodzenia :"<<rok_urodzenia<<endl;
+  for(i=0;i<rok_studiow-48;i++)
+        {
+            cout<<"Srednia ocen z  "<<i+1<<" roku wynosi:"<<srednie[i]<<endl;
+        }
+
+}
+void Student::policzSrednieLat()
+{
+    int ile_ocen,i=0;
+        for(i=0;i<rok_studiow-48;i++)
+        {
+            cout<<"podaj ilosc ocen na "<<i+1<<" roku"<<endl;
+            cin>>ile_ocen;
+            srednie[i]=policzSrednia(ile_ocen);
+        }
+
+}
+int main()
+{
+
+Student Student5("Marek","Szymanski5","77030403815","pibd",53);
+Student5.policzSrednieLat();
+Student5.wyswietlDane();
+cout<<endl;
+
+    return 0;
+}
