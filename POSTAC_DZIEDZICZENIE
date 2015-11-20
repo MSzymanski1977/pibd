@@ -1,0 +1,284 @@
+#include <iostream>
+#include <cstring>
+#include <stdlib.h>
+#include <windows.h>
+using namespace std;
+enum rola {przeciwnik,neutralny,przyjaciel};
+enum umiejetnosci {niskie,srednie,wysokie};
+
+class Postac
+{
+
+    string _nazwa;
+    rola _rola;
+protected:
+    int zywotnosc;
+    string _bron;
+public:
+    string odczytajNazwe();
+    rola odczytajRole();
+    int zwrocZywotnosc();
+    void zmniejszZywotnosc();
+    void zwiekszZywotnosc();
+    void odczytajDane();
+//konstrukor
+    Postac(string,rola);
+   // ~Postac(void);
+};
+//****************************************************************************
+class Gracz:public Postac
+{
+private:
+    umiejetnosci _umiejetnosci;
+    void okreslUmiejetnosci();
+public:
+    int _doswiadczenie;
+    void odczytajDane();
+    void zwiekszDoswiadczenie(int doswiadczenie);
+    void zwiekszZywotnosc();
+    void stoczBoj(Gracz& _gracz);
+    Gracz(string,string,rola);
+
+};
+//*************************************************************
+class Potwor:public Postac
+{
+private:
+    string _kolor;
+    int _liczba_nog;
+public:
+    void odczytajDane();
+    Potwor(string,string,string,rola,int);
+};
+
+//**************************************************************
+string Postac::odczytajNazwe()
+{
+
+    return _nazwa;
+}
+
+rola Postac::odczytajRole()
+{
+
+    return _rola;
+}
+int Postac::zwrocZywotnosc()
+{
+    return zywotnosc;
+}
+
+void Postac::zwiekszZywotnosc()
+{
+    zywotnosc++;
+    cout<<endl;
+  //  cout<<"Zwieksz zywotnosc POSTAC"<<endl;
+
+}
+
+
+void Postac::zmniejszZywotnosc()
+{
+    zywotnosc--;
+}
+void Postac::odczytajDane()
+{
+    cout<<"Nazwa postaci :"<<_nazwa<<endl;
+    switch (_rola)
+         {
+          case przeciwnik:
+            cout<<"przeciwnik"<<endl;
+          break;
+          case neutralny:
+            cout<<"neutralny"<<endl;
+          break;
+          case przyjaciel:
+            cout<<"przyjaciel"<<endl;
+          break;
+         }
+    cout<<"Zywotnosc postaci :"<<zywotnosc<<endl;
+    cout<<"Bron postaci :"<<_bron<<endl;
+
+}
+//KONSTRUKTOR
+Postac::Postac(string a_nazwa,rola a_rola)
+{
+    _nazwa=a_nazwa;
+    _rola=a_rola;
+    zywotnosc=100;
+    _bron="niewiadomo";
+}
+
+//Postac::~Postac(void)
+//{
+//    cout<<"usuwamy postac :"<<_nazwa<< endl;
+    //cout<<'\a';
+//    Beep(1500,900);
+
+//}
+//GRACZ*******************************************************************************
+void Gracz::okreslUmiejetnosci()
+{
+    if ((_doswiadczenie>=0)&&(_doswiadczenie<=30))
+    _umiejetnosci=niskie;
+    if ((_doswiadczenie>30)&&(_doswiadczenie<=70))
+    _umiejetnosci=srednie;
+    if ((_doswiadczenie>70)&&(_doswiadczenie<=100))
+    _umiejetnosci=wysokie;
+}
+void Gracz::odczytajDane()
+{
+    cout<<"Nazwa gracza :"<<odczytajNazwe()<<endl;
+    switch (odczytajRole())
+         {
+          case przeciwnik:
+            cout<<"przeciwnik"<<endl;
+          break;
+          case neutralny:
+            cout<<"neutralny"<<endl;
+          break;
+          case przyjaciel:
+            cout<<"przyjaciel"<<endl;
+          break;
+         }
+    cout<<"Zywotnosc gracza :"<<zywotnosc<<endl;
+    cout<<"Bron gracza :"<<_bron<<endl;
+    switch (_umiejetnosci)
+         {
+          case niskie:
+            cout<<"umiejetnosci niskie"<<endl;
+          break;
+          case srednie:
+            cout<<"umiejetnosci srednie"<<endl;
+          break;
+          case wysokie:
+            cout<<"umiejetnosci wysokie"<<endl;
+          break;
+         }
+          cout<<"Doswiadczenie :"<<_doswiadczenie<<endl;
+}
+void Gracz::zwiekszDoswiadczenie(int doswiadczenie)
+{
+    _doswiadczenie=_doswiadczenie+doswiadczenie;
+    cout<<"doswiadczenie wynosi"<<_doswiadczenie<<endl;
+    if (_doswiadczenie>100)
+    {
+        _doswiadczenie=100;
+    }
+
+    okreslUmiejetnosci();
+}
+
+Gracz::Gracz(string nazwa_gracza,string bron_gracza,rola rola_gracza):Postac(nazwa_gracza,rola_gracza)
+{
+    _bron=bron_gracza;
+    _doswiadczenie=0;
+    okreslUmiejetnosci();
+}
+
+void Gracz::zwiekszZywotnosc()
+{
+ switch (_umiejetnosci)
+ {
+     case niskie:
+     {
+        zywotnosc=100;
+     }
+     break;
+     case srednie:
+     {
+        zywotnosc=200;
+     }
+     break;
+     case wysokie:
+     {
+        zywotnosc=400;
+     }
+     break;
+ }
+ cout<<endl;
+//cout<<"Zwieksz zywtnosc w GRACZ"<<endl;
+}
+
+void Gracz::stoczBoj(Gracz& _gracz)
+{
+ if (_gracz.odczytajRole()==przeciwnik)
+    {
+        if (_doswiadczenie>_gracz._doswiadczenie)
+            {
+                _gracz.zywotnosc=_gracz.zywotnosc-20;
+                cout<<"wygral pierwszy"<<endl;
+            }
+        if (_doswiadczenie<_gracz._doswiadczenie)
+            {
+                zywotnosc=zywotnosc-20;
+                cout<<"wygral drugi"<<endl;
+            }
+
+        if (_doswiadczenie==_gracz._doswiadczenie)
+            {
+                cout<<"Remis"<<endl;
+            }
+    }
+}
+
+//POTWOR**********************************************************************************************
+void Potwor::odczytajDane()
+{
+    cout<<"Nazwa potwora :"<<odczytajNazwe()<<endl;
+
+    switch (odczytajRole())
+         {
+          case przeciwnik:
+            cout<<"przeciwnik"<<endl;
+          break;
+          case neutralny:
+            cout<<"neutralny"<<endl;
+          break;
+          case przyjaciel:
+            cout<<"przyjaciel"<<endl;
+          break;
+         }
+    cout<<"Kolor potwora :"<<_kolor<<endl;
+    cout<<"Liczba nog potwora :"<<_liczba_nog<<endl;
+
+}
+
+Potwor::Potwor(string nazwa_potwora,string kolor_potwora,string bron_potwora,rola rola_potwora,int liczba_nog):Postac(nazwa_potwora,rola_potwora)
+{
+    _kolor=kolor_potwora;
+    _liczba_nog=liczba_nog;
+    _bron=bron_potwora;
+}
+
+int main()
+{
+   // Postac Postac_1("Zenek",neutralny);
+   // Postac_1.odczytajDane();
+   Gracz Gracz_1("Franek","miecz",przyjaciel);
+   Gracz Gracz_2("Olek","maczuga",przeciwnik);
+   Gracz_1.zwiekszDoswiadczenie(40);
+   Gracz_2.zwiekszDoswiadczenie(20);
+   //Gracz_1.odczytajDane();
+   //Gracz_2.odczytajDane();
+   Gracz_1.stoczBoj(Gracz_2);
+   Gracz_1.odczytajDane();
+   Gracz_2.odczytajDane();
+   //Gracz_1.zwiekszZywotnosc();
+   //Gracz_1.Postac::zwiekszZywotnosc();
+    //cout<<endl;
+   // Gracz & Pseudo_1=Gracz_1;
+   // Pseudo_1.odczytajDane();
+   // Gracz_1.odczytajDane();
+   // Pseudo_1.Postac::zwiekszZywotnosc();
+   // Pseudo_1.odczytajDane();
+
+    cout<<endl;
+
+   // Potwor Potwor_1("Centaur","zielony","maczuga",przeciwnik,7);
+   // Potwor_1.odczytajDane();
+
+
+
+    return 0;
+}
