@@ -1,0 +1,45 @@
+#include <iostream>
+#include <cstring>
+#include <stdio.h>
+using namespace std;
+int main()
+{
+    int i,liczba,liczba1=0,najwieksza,najmniejsza;
+    FILE *fp;
+
+     fp = fopen("liczby.dat","wb");
+     fseek(fp,0,SEEK_SET);
+    for (i=0;i<5;i++)
+    {
+            do
+            {
+               cin.clear();
+               cin.sync();
+               cin>>liczba;
+            }
+            while (cin.fail()==true);
+            fwrite(&liczba,sizeof(int),1,fp);
+    }
+    fclose(fp);
+    cout<<endl;
+
+    fp = fopen("liczby.dat","rb");
+    fseek(fp,0,SEEK_SET);
+    najwieksza=liczba;
+    najmniejsza=liczba;
+    for (i=0;i<5;i++)
+    {
+            fread(&liczba1,sizeof(int),1,fp);
+            cout<<liczba1<<endl;
+            if (najwieksza<=liczba1)
+            najwieksza=liczba1;
+            if (najmniejsza>=liczba1)
+            najmniejsza=liczba1;
+    }
+
+
+            fclose(fp);
+             cout<<"najwieksza liczba :"<<najwieksza<<endl;
+             cout<<"najmniejsza liczba :"<<najmniejsza<<endl;
+    return 0;
+}
