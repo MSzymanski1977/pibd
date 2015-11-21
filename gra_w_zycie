@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include <cstring>
 #include <stdlib.h>
+#include <ctime>
+#include <windows.h>
 using namespace std;
 
 int main()
 {
-   size_t liczba_testow,i,j,tab[5][5];
-   size_t tab_roz[7][7],k,l;
+   size_t liczba_testow,i,j,k,l,tab[5][5],ile_zywych=0;
+   size_t tab_roz[7][7],czas;
    char wiersz[5],znak;
    //do
     scanf("%d",&liczba_testow);
@@ -24,6 +26,11 @@ int main()
        }
    printf("\n");
    }
+//petla nieskonczona
+
+for(;;)
+{
+
    for(k=1;k<6;k++)
    {
        for(l=1;l<6;l++)
@@ -45,18 +52,51 @@ int main()
 
    }
 
-for(i=0;i<7;i++)
+for(i=1;i<6;i++)
    {
 
        //printf("%s\n",wiersz);
-       for(j=0;j<7;j++)
+       for(j=1;j<6;j++)
        {
            printf("%d",tab_roz[i][j]);
        }
    printf("\n");
    }
 
+_sleep(500);
 
+//**********************************************
+for(i=1;i<6;i++)
+{
+    for(j=1;j<6;j++)
+    {
+//******************************************************
+        ile_zywych=0;
+        //printf("%d",tab_roz[k][l]);
+        for(k=i-1;k<i+2;k++)
+        {
+            //printf("k%d",k);
+            for(l=j-1;l<j+2;l++)
+            {
+                //printf("l%d",l);
+                if ((tab_roz[k][l]==1)&&((k!=i)||(l!=j))) ile_zywych++;
 
+            }
+            //printf("ile zywych %d",ile_zywych);
+            //printf("\n");
+        }
+        //printf("\n");
+//********************************************************
+        if ((ile_zywych<2)||(ile_zywych>3)) tab[i-1][j-1]=0;
+        if (ile_zywych==3) tab[i-1][j-1]=1;
+        if (((ile_zywych==2)||(ile_zywych==3))&&(tab_roz[i][j]==1)) tab[i-1][j-1]=1;
+        if ((ile_zywych==2)&&(tab_roz[i][j]==0)) tab[i-1][j-1]=0;
+        //printf("%d%d(%d)[%d]",i,j,ile_zywych,tab[i-1][j-1]);
 
+    }
+   printf("\n");
+}
+//printf("\n");
+
+}
 }
