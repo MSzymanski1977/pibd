@@ -1,0 +1,24 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+size_t n=10,i,ind_gor=0,ind_dol=0,j,k;
+int maxsofar=0,maxhere=0,suma;
+int Tab[]={31,-41,59,26,-53,58,97,-93,-23,84};
+for(i=0;i<n-1;i++)
+{
+
+    maxhere=max(maxhere+Tab[i],0);
+    if (maxhere==Tab[i]) ind_dol=i;
+    maxsofar=max(maxsofar,maxhere);
+   if (maxhere>=maxsofar) ind_gor=i;
+}
+
+cout<<maxsofar<<endl;
+cout<<ind_dol<<endl;
+cout<<ind_gor<<endl;
+
+return 0;
+}
