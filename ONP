@@ -1,0 +1,203 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+int main(void)
+{
+    int i,j,k,poz_wyj=0,wsk_stosu=0,liczba_testow;
+    char Cstrwej[401]={0},znak;
+    char Cstrwyj[401]={0};
+    char stos[400]={0};
+
+    scanf("%d",&liczba_testow);
+    scanf("%c",&znak);
+    while (scanf("%s",Cstrwej)>0)
+    {
+
+    wsk_stosu=0;
+    poz_wyj=0;
+       for (j=0;j<strlen(Cstrwej);j++)
+            {
+                switch (Cstrwej[j])
+                {
+                    case '(':
+                        stos[wsk_stosu]=Cstrwej[j];
+                        wsk_stosu++;
+                    break;
+                    case ')':
+                    {
+                        for (k=wsk_stosu;k>=0;k--)
+                        {
+                            if (stos[wsk_stosu-1]!='(')
+                                {
+                                    Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+                                    stos[wsk_stosu-1]=0;
+                                    poz_wyj++;
+                                    wsk_stosu--;
+                                }
+                            else
+                            {
+                                k=0;
+                                stos[wsk_stosu-1]=0;
+                                wsk_stosu--;
+
+                            }
+                        }
+                    break;
+                    case '+':
+                        for (k=wsk_stosu;k>0;k--)
+                        {
+                            if (stos[wsk_stosu-1]!='(')
+                                {
+                                    Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+                                    stos[wsk_stosu-1]=0;
+                                    poz_wyj++;
+                                    wsk_stosu--;
+                                }
+                            else
+                            {
+                                stos[wsk_stosu]='+';
+                                wsk_stosu++;
+                                k=0;
+                            }
+
+                        }
+
+                        if (wsk_stosu==0) {
+                                            stos[wsk_stosu]='+';
+                                            wsk_stosu++;
+                                          }
+
+                    break;
+                    case '-':
+                     for (k=wsk_stosu;k>0;k--)
+                        {
+                            if (stos[wsk_stosu-1]!='(')
+                                {
+                                    Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+                                    stos[wsk_stosu-1]=0;
+                                    poz_wyj++;
+                                    wsk_stosu--;
+                                }
+                            else {
+                                    k=0;
+                                    stos[wsk_stosu]='-';
+                                    wsk_stosu++;
+                                 }
+                        }
+                    if (wsk_stosu==0) {
+                                            stos[wsk_stosu]='-';
+                                            wsk_stosu++;
+                                      }
+
+                    break;
+                    case '*':
+                       if (stos[wsk_stosu-1]=='+'||stos[wsk_stosu-1]=='-'||stos[wsk_stosu]==0)
+                           {
+                                stos[wsk_stosu]=Cstrwej[j];
+                                wsk_stosu++;
+
+                           }
+                       else
+                       {
+                         for (k=wsk_stosu;k>0;k--)
+                        {
+                            if (stos[wsk_stosu-1]!='(')
+                                {
+                                    Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+                                    poz_wyj++;
+                                    wsk_stosu--;
+                                }
+                            else {
+                                    k=0;
+                                    stos[wsk_stosu]='*';
+                                    wsk_stosu++;
+
+                                 }
+                        }
+                       }
+                    break;
+
+                    case '/':
+                       if (stos[wsk_stosu-1]=='+'||stos[wsk_stosu-1]=='-'||stos[wsk_stosu]==0)
+                           {
+                                stos[wsk_stosu]=Cstrwej[j];
+                                wsk_stosu++;
+                           }
+                       else
+                       {
+                         for (k=wsk_stosu;k>0;k--)
+                        {
+                            if (stos[wsk_stosu-1]!='(')
+                                {
+                                    Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+                                    poz_wyj++;
+                                    wsk_stosu--;
+                                }
+                            else {
+                                    k=0;
+
+                                    stos[wsk_stosu]='/';
+                                    wsk_stosu++;
+
+                                 }
+                        }
+                       }
+                    break;
+                                        case '^':
+                       if (stos[wsk_stosu-1]=='+'||stos[wsk_stosu-1]=='-'||stos[wsk_stosu]==0||(stos[wsk_stosu-1]=='*')||(stos[wsk_stosu-1]=='/'))
+                           {
+                                stos[wsk_stosu]=Cstrwej[j];
+                                wsk_stosu++;
+                           }
+                       else
+                       {
+                         for (k=wsk_stosu;k>0;k--)
+                        {
+                            if (stos[wsk_stosu-1]!='(')
+                                {
+                                    Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+                                    poz_wyj++;
+                                    wsk_stosu--;
+                                }
+                            else {
+                                    k=0;
+                                    stos[wsk_stosu]='^';
+                                    wsk_stosu++;
+                                 }
+                        }
+
+                       }
+                    break;
+                    default:
+                        Cstrwyj[poz_wyj]=Cstrwej[j];
+                        poz_wyj++;
+                    break;
+
+
+                }
+
+
+                    }
+                }
+
+         for (i=wsk_stosu;i>0;i--)
+         {
+
+            Cstrwyj[poz_wyj]=stos[wsk_stosu-1];
+            poz_wyj++;
+            wsk_stosu--;
+
+         }
+
+      printf("%s\n",Cstrwyj);
+      for(i=0;i<401;i++)
+      {
+          Cstrwej[i]=0;
+          Cstrwyj[i]=0;
+          stos[i]=0;
+      }
+    }
+    return 0;
+}
