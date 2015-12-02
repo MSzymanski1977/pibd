@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cstdlib>
+# include <ctime>
+#include <cmath>
+#include <windows.h>
+
+using namespace std;
+void gotoxy(int x, int y)
+{
+    COORD cord;
+    cord.X = x;
+    cord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
+}
+
+
+int main(void)
+{
+
+
+int N=0,ile_dobrych=0;
+cout<<"Podaj liczbe prob"<<endl;
+do
+{
+    cin.clear();
+    cin.sync();
+    cin>>N;
+}
+while ((cin.fail()==true)||(N<0));
+cout<<endl;
+double kat=0, a = 0, b = 3.14,d=1000,x=0;
+    srand( time( NULL ) );
+    for (int i=0; i<N; i++)
+    {
+        x= 0 +(( double ) rand() / RAND_MAX) *( d -  0);
+        kat = a +(( double ) rand() / RAND_MAX) *( b - a );
+        if (x<=(d/2)*sin(kat)) ile_dobrych++;
+
+    }
+    cout<<(double)N/ile_dobrych<<endl;
+    return 0;
+}
