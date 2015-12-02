@@ -1,0 +1,143 @@
+#include <iostream>
+#include <cstdlib>
+# include <ctime>
+#include <cmath>
+#include <windows.h>
+
+using namespace std;
+void gotoxy(int x, int y)
+{
+
+    COORD cord;
+    cord.X = x;
+    cord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
+}
+
+
+void make_heap(int *T, int &element, int &numer)
+{
+    if (numer==1) T[1]=element;
+    if (numer>1)
+    {
+       int d=numer/2;
+       //cout<<" "<<d<<" "<<T[d]<<" "<<numer<<" "<<element<<endl;
+        if (T[d]<=element)
+        {
+            T[numer]=element;
+            //cout<<" "<<numer<<"  "<<T[numer]<<endl;
+
+        }
+        if (T[d]>element)
+            {
+                int temp=T[d];
+                T[d]=element;
+                T[numer]=temp;
+             //cout<<" "<<d<<" "<<T[d]<<" "<<numer<<" "<<T[numer]<<endl;
+                make_heap(T,element,d);
+            }
+    }
+}
+
+void decr_heap(int *T,int &n_roz, int &numer)
+{
+
+        int liczba_synow=0;
+        if ((2*numer+1)<=n_roz) liczba_synow=2;
+        if (2*numer==n_roz) liczba_synow=1;
+
+      switch (liczba_synow)
+      {
+          case 1:
+
+              if (T[numer]>T[2*numer])
+              {
+                    int d=2*numer;
+                    //cout<<"  "<<numer<<" "<<T[numer]<<" "<<d<<" "<<T[d]<<endl;
+                    int temp=T[numer];
+                    T[numer]=T[2*numer];
+                    T[2*numer]=temp;
+                    //cout<<"  "<<numer<<" "<<T[numer]<<" "<<d<<" "<<T[d]<<endl;
+              }
+          break;
+          case 2:
+
+              if ((T[2*numer]<T[2*numer+1])&&(T[numer]>T[2*numer]))
+              {
+                    int d=2*numer;
+                    //cout<<"  "<<numer<<" "<<T[numer]<<" "<<d<<" "<<T[d]<<endl;
+                    int temp=T[numer];
+                    T[numer]=T[2*numer];
+                    T[2*numer]=temp;
+                    //cout<<"  "<<numer<<" "<<T[numer]<<" "<<d<<" "<<T[d]<<endl;
+                    decr_heap(T,n_roz,d);
+              }
+              if ((T[2*numer]>=T[2*numer+1])&&(T[numer]>T[2*numer+1]))
+              {
+                   int d=2*numer+1;
+                    //cout<<"  "<<numer<<" "<<T[numer]<<" "<<d<<" "<<T[d]<<endl;
+                    int temp=T[numer];
+                    T[numer]=T[2*numer+1];
+                    T[2*numer+1]=temp;
+                    //cout<<"  "<<numer<<" "<<T[numer]<<" "<<d<<" "<<T[d]<<endl;
+                    decr_heap(T,n_roz,d);
+              }
+          break;
+      }
+
+
+}
+
+
+int main(void)
+{
+
+int element=0;
+int n=0,n_roz=0;
+cout<<"Podaj liczbe elementow"<<endl;
+do
+{
+    cin.clear();
+    cin.sync();
+    cin>>n;
+}
+while ((cin.fail()==true)||(n<0));
+cout<<endl;
+n_roz=n+1;
+int* T=new int[n+1];
+int* Tmin=new int[n+1];
+srand( time( NULL ) );
+
+for (int i=1; i<n+1; i++)
+    {
+        element=rand() % 100;
+        make_heap(T,element,i);
+    }
+
+for(int i=1 ; i<n+1 ; i++)
+{
+ cout<<T[i]<<" ";
+}
+cout<<endl;
+for (int i=1; i<n_roz ; i++)
+{
+    Tmin[i]=T[1];
+    T[1]=T[n];
+    n--;
+    int k=1;
+    decr_heap(T,n,k);
+   //cout<<Tmin[i-1]<<endl;
+
+}
+
+cout<<endl;
+
+cout<<endl;
+for(int i=1 ; i<n_roz ; i++)
+{
+ cout<<Tmin[i]<<" ";
+}
+delete [] T;
+delete [] Tmin;
+    return 0;
+}
