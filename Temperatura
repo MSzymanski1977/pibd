@@ -1,0 +1,104 @@
+public class Temperatura 
+
+    {
+	
+	private float wartosc_temperatury;
+	private char skala;
+
+public Temperatura(float T, char S)
+	
+	{
+		this.wartosc_temperatury=T;		
+		this.skala=S;
+	}
+	
+	public Temperatura()
+	
+	{
+		wartosc_temperatury=0;
+		skala='C';
+	}
+	
+	public Temperatura(float T)
+	
+	{
+		wartosc_temperatury=T;
+		skala='C';
+	}
+	
+	public Temperatura(char S)
+	{
+		wartosc_temperatury=0;
+		skala=S;
+	}
+    
+	public char zwroc_skale()
+    
+	{
+   
+          return this.skala;
+    
+	}
+	
+    public float zwroc_temp_w_C()
+		
+	    {
+		    if (skala=='C')     	
+	    	
+		    	return wartosc_temperatury;
+		    
+		    if (skala=='F') 
+		    
+		    	return 9*(wartosc_temperatury/5)+32; 
+		
+		    return 0;
+	    }
+	
+	 public float zwroc_temp_w_F()
+		
+	    {
+		    if (skala=='C')     	
+	    	
+		    	return  5*(wartosc_temperatury-32)/9;
+		    
+		    if (skala=='F') 
+		    
+		    	return wartosc_temperatury;
+		    return 0;
+		
+	    }
+	public void ustaw_temperature(float T)
+	
+	{
+	  
+		this.wartosc_temperatury=T;
+		
+	
+	}
+    
+	public void ustaw_skale(char S)
+	{
+	     
+		skala=S;				
+	}
+    
+	public void ustaw_temperature_i_skale(float T, char S)
+	{
+	    wartosc_temperatury=T; 
+		skala=S;				
+	}
+    
+	public double  metoda_porownujaca (Temperatura T1, Temperatura T2)
+	
+	{
+		float temp1,temp2;
+		temp1=T1.zwroc_temp_w_C();
+		temp2=T2.zwroc_temp_w_C();
+		if (temp1==temp2) return 0;
+		if (temp1>temp2) return 1;
+		if (temp1<temp2) return -1;
+	
+	return -273.15;
+	}
+   
+}
