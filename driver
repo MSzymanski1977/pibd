@@ -1,0 +1,74 @@
+public class Driver {
+
+
+	public static void main(String[] args) 
+
+	{
+		float tempC, tempF,ustaw_temp=17;
+		char skala='F',znak;
+
+		if (args.length == 0)
+		{
+
+
+			Temperatura Temp1 = new Temperatura(10,'C');
+
+			System.out.println("skala"+Temp1.zwroc_skale()+"temperatura"+Temp1.zwroc_temp_w_C());
+
+			Temperatura Temp2 = new Temperatura();
+
+			System.out.println("skala"+Temp2.zwroc_skale()+"temperatura"+Temp2.zwroc_temp_w_C());
+
+
+			tempC=Temp1.zwroc_temp_w_C();
+
+			System.out.println("temperatura w C"+tempC);
+
+			tempF = Temp2.zwroc_temp_w_F();
+
+			System.out.println("temperatura w F"+tempF);
+
+			Temp1.ustaw_temperature(ustaw_temp);
+
+			System.out.println("temperatura"+Temp1.zwroc_temp_w_C());
+
+			Temp1.ustaw_skale(skala);
+
+			System.out.println("skala"+Temp1.zwroc_skale());
+
+			Temp1.ustaw_temperature_i_skale(ustaw_temp,skala);
+
+			System.out.println("skala"+Temp1.zwroc_skale()+"temperatura"+Temp1.zwroc_temp_w_C());
+
+		}
+		else
+		{
+			for (int i=0 ; i<args.length ;i++)
+			{
+
+				String dane=args[i];
+
+				//String[] args 
+				// 32.0F 0.0C
+				
+				char scale = args[0].charAt(args[i].length() - 1);
+				float value = Float.parseFloat(args[i].substring(0,args[i].length()-1));
+				
+
+
+
+
+
+
+
+
+
+			}
+		}
+
+
+
+
+	}
+
+}
