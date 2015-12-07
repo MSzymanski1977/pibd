@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+public class Hadrozaur extends Dinosaur 
+{
+	private double max_predkosc;
+	
+	private int liczba_rogow;
+	
+	public void zmien_zachowanie()
+	{
+		this.zmien_zachowanie_dinosaura("poruszanie_sie");
+	}
+	public void zmien_zachowanie(String zachowanie)
+	{
+		this.zmien_zachowanie_dinosaura(zachowanie);
+	}
+	public void podaj_cechy_Hadrozaura()
+	{
+		 Scanner input = new Scanner(System.in); 
+		 System.out.println("Podaj max predkosc: ");
+	     this.max_predkosc = Double.parseDouble(input.nextLine());
+		 System.out.println("Podaj ilosc rogow: ");
+	     this.liczba_rogow = Integer.parseInt(input.nextLine());
+	}
+	public void wypisz_cechy_Hadrozaura()
+	{
+	    System.out.println(this.podaj_nazwe_dinosaura()+" ma "+this.liczba_rogow+" rogow");
+	    System.out.println("Maksymalna predkosc: "+this.max_predkosc);
+	
+	}
+	public Hadrozaur(String nazwa, double wysokosc, double szerokosc, double predkosc, double waga, String pozywienie,String co_robi, double max_predkosc, int liczba_rogow)
+    {
+		 super(nazwa, wysokosc, szerokosc, predkosc, waga, pozywienie,co_robi); 
+		 this.max_predkosc=max_predkosc;
+		 this.liczba_rogow=liczba_rogow;
+    }
+
+}
