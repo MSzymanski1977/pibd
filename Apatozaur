@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class Apatozaur extends Dinosaur 
+{
+	private double dlugosc_szyi;
+	
+	private int liczba_zoladkow;
+	
+	public void zmien_zachowanie()
+	{
+		this.zmien_zachowanie_dinosaura("spanie");
+	}
+	public void zmien_zachowanie(String zachowanie)
+	{
+		this.zmien_zachowanie_dinosaura(zachowanie);
+	}
+	public void podaj_cechy_Apatozaura()
+	{
+		Scanner input = new Scanner(System.in); 
+		System.out.println("Podaj dlugosc szyi: ");
+		this.dlugosc_szyi = Double.parseDouble(input.nextLine());
+		 System.out.println("Podaj liczbe zolodkow: ");
+	     this.liczba_zoladkow = Integer.parseInt(input.nextLine());
+	}
+	public void wypisz_cechy_Apatozaura()
+	{
+	
+		System.out.println("Szyja ma: "+this.dlugosc_szyi);
+	    System.out.println(this.podaj_nazwe_dinosaura()+" ma "+this.liczba_zoladkow+" zoladkow");
+	
+	}
+	public Apatozaur(String nazwa, double wysokosc, double szerokosc, double predkosc, double waga, String pozywienie,String co_robi, double dlugosc_szyi, int Liczba_zoladkow)
+    {
+		 super(nazwa, wysokosc, szerokosc, predkosc, waga, pozywienie,co_robi); 
+		 this.dlugosc_szyi=dlugosc_szyi;
+		 this.liczba_zoladkow=liczba_zoladkow;
+    }
+
+}
