@@ -1,0 +1,25 @@
+ublic class Driver_Dinozaury {
+
+	public static void main(String[] args) 
+	{
+	 Apatozaur A1 = new Apatozaur("Apatozaur",7.89,3.02, 1.3, 1234,"roslinozerny","jedzenie",6.89,6);
+	 Tyranozaur T1 = new Tyranozaur("Tyranozaur",4.89,2.2, 10.3, 434,"miesozerny","spanie",74,26.78);
+	 Hadrozaur H1 = new Hadrozaur("Hadrozaur",3.89,1.2, 22.3, 334,"roslinozerny","poruszanie_sie",44,6);
+	 A1.wypisz_dane_dinosaura();
+	 T1.wypisz_dane_dinosaura();
+	 H1.wypisz_dane_dinosaura();
+	 A1.pokaz_zachowanie_dinosaura();
+	 T1.pokaz_zachowanie_dinosaura();
+	 H1.pokaz_zachowanie_dinosaura();
+	 T1.zmien_zachowanie();
+	 T1.pokaz_zachowanie_dinosaura();
+	 T1.zmien_zachowanie("poruszanie_sie");
+	 T1.pokaz_zachowanie_dinosaura();
+	 H1.pobierz_dane_dinosaura();
+	 H1.podaj_cechy_Hadrozaura();
+	 H1.wypisz_dane_dinosaura();
+	 H1.wypisz_cechy_Hadrozaura();
+	 
+	}
+
+}
