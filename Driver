@@ -1,0 +1,75 @@
+public class Driver {
+
+
+	public static void main(String[] args) 
+
+	{
+		float tempC, tempF,ustaw_temp=17;
+		char skala='F',znak;
+
+		if (args.length == 0)
+		{
+
+			Temperatura Temp1 = new Temperatura(10,'C');
+			System.out.println("skala"+Temp1.zwroc_skale()+"temperatura"+Temp1.zwroc_temp_w_C());
+			Temperatura Temp2 = new Temperatura();
+			System.out.println("skala "+Temp2.zwroc_skale()+" temperatura "+Temp2.zwroc_temp_w_C());
+			tempC=Temp1.zwroc_temp_w_C();
+			System.out.println("temperatura: "+tempC+" C");
+			tempF = Temp2.zwroc_temp_w_F();
+			System.out.println("temperatura: "+tempF+" F");
+			Temp1.ustaw_temperature(ustaw_temp);
+			System.out.println("temperatura :"+Temp1.zwroc_temp_w_C()+" C");
+			Temp1.ustaw_skale(skala);
+			System.out.println("skala"+Temp1.zwroc_skale());
+			Temp1.ustaw_temperature_i_skale(ustaw_temp,skala);
+		 
+		    	System.out.println("temperatura: "+Temp1.zwroc_temp_w_C()+" C");
+		    
+		    	System.out.println("temperatura: "+Temp1.zwroc_temp_w_F()+" F");
+			
+
+		}
+		if (args.length==1)
+		{
+			char scale = args[0].charAt(args[0].length() - 1);
+			float value = Float.parseFloat(args[0].substring(0,args[0].length()-2));
+		    
+			Temperatura Temp1 = new Temperatura(value,scale);
+		   
+		    	System.out.println("temperatura: "+Temp1.zwroc_temp_w_C()+" C");
+		   
+		    	System.out.println("temperatura: "+Temp1.zwroc_temp_w_F()+" F");
+		}
+		if (args.length>1)
+			for (int i=0 ; i<(args.length-1) ;i++)
+			{
+
+				//String[] args 
+				// 32.0F 0.0C
+				
+				char scale = args[i].charAt(args[i].length() - 1);
+				float value = Float.parseFloat(args[i].substring(0,args[i].length()-1));
+			    
+				Temperatura Temp1 = new Temperatura(value,scale);
+				Temperatura Temp2 = new Temperatura(Float.parseFloat(args[i+1].substring(0,args[i+1].length()-1)),args[i+1].charAt(args[i+1].length() - 1));
+
+			   
+			    	System.out.println("temperatura: "+Temp1.zwroc_temp_w_C()+" C");
+			   
+			    	System.out.println("temperatura: "+Temp1.zwroc_temp_w_F()+" F");
+			    
+			    
+			    			
+				    	System.out.println("temperatura: "+Temp2.zwroc_temp_w_C()+" C");
+			 
+				    	System.out.println("temperatura: "+Temp2.zwroc_temp_w_F()+" F");	    	
+			
+				    	System.out.println(Temp1.metoda_porownujaca(Temp2));
+			    
+			    
+				
+			}
+		}
+	}
+
