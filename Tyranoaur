@@ -1,0 +1,38 @@
+import java.util.Scanner;
+
+public class Tyranozaur extends Dinosaur 
+{
+	private int liczba_zebow;
+	
+	private double dlugosc_szponow;
+	
+	public void zmien_zachowanie()
+	{
+		this.zmien_zachowanie_dinosaura("jedzenie");
+	}
+	public void zmien_zachowanie(String zachowanie)
+	{
+		this.zmien_zachowanie_dinosaura(zachowanie);
+	}
+	public void podaj_cechy_Tyranozaura()
+	{
+		Scanner input = new Scanner(System.in); 
+		System.out.println("Podaj dlugosc szponow: ");
+	     this.dlugosc_szponow = Double.parseDouble(input.nextLine());
+		System.out.println("Podaj liczbe zebow: ");
+	     this.liczba_zebow = Integer.parseInt(input.nextLine());	 
+	}
+	public void wypisz_cechy_Tyranozaura()
+	{
+	    System.out.println(this.podaj_nazwe_dinosaura()+" ma "+this.liczba_zebow+" zebow");
+	    System.out.println("Szpony maja: "+this.dlugosc_szponow);
+	
+	}
+	public Tyranozaur(String nazwa, double wysokosc, double szerokosc, double predkosc, double waga, String pozywienie,String co_robi, int liczba_zebow, double dlugosc_szponow)
+    {
+		 super(nazwa, wysokosc, szerokosc, predkosc, waga, pozywienie,co_robi); 
+		 this.dlugosc_szponow=dlugosc_szponow;
+		 this.liczba_zebow=liczba_zebow;
+    }
+
+}
